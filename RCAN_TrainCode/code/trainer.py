@@ -42,7 +42,7 @@ class Trainer():
         self.model.train()
 
         timer_data, timer_model = utility.timer(), utility.timer()
-        for batch, (lr, hr, _, idx_scale) in enumerate(self.loader_train):
+        for batch, (lr, hr, idx_scale) in enumerate(self.loader_train):
             lr, hr = self.prepare([lr, hr])
             timer_data.hold()
             timer_model.tic()
@@ -85,7 +85,7 @@ class Trainer():
                 eval_acc = 0
                 self.loader_test.dataset.set_scale(idx_scale)
                 tqdm_test = tqdm(self.loader_test, ncols=80)
-                for idx_img, (lr, hr, filename, _) in enumerate(tqdm_test):
+                for idx_img, (lr, hr, filename) in enumerate(tqdm_test):
                     filename = filename[0]
                     no_eval = (hr.nelement() == 1)
                     if not no_eval:
